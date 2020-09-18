@@ -1,9 +1,10 @@
 # C source files
-PROJECT_CSRC 	= main.c
+PROJECT_CSRC 	= src/main.c     
 # C++ source files
 PROJECT_CPPSRC 	= 
 # Directories to search headers in
-PROJECT_INCDIR	= 
+PROJECT_INCDIR	= include/
+PROJECT_TESTS   = tests/test.c \
 # Additional libraries
 PROJECT_LIBS	=
 # Compiler options
