@@ -1,36 +1,23 @@
-#include <ch.h>
-#include <hal.h>
-#include <test.h>
-static THD_WORKING_AREA(waThread, 128);
-static THD_FUNCTION(Thread, arg) 
-{
-    (void)arg;
+#include <common.h>
 
-    while (true)
-    {
-        chThdSleepSeconds(1);
-    }
-}
+void search_test(void);
 
-/*
- * Application entry point.
- */
 int main(void)
 {
-    /*
-     * System initializations.
-     * - HAL initialization, this also initializes the configured device drivers
-     *   and performs the board-specific initializations.
-     * - Kernel initialization, the main() function becomes a thread and the
-     *   RTOS is active.
-     */
     halInit();
     chSysInit();
+    search_test();
+}
 
-    chThdCreateStatic(waThread, sizeof(waThread), NORMALPRIO, Thread, NULL /* arg is NULL */);
-
-    while (true)
-    {
-        chThdSleepSeconds(1);
-    }
+void search_test(void)
+{
+#if (MAIN_CHECK == LED1)
+    testLED1();
+#elif (MAIN_CHECK == LED2)
+    testLED2();
+#elif (MAIN_CHECK == LED3)
+    testGPT();
+#elif (MAIN_CHECK == PORT3)
+    testPORT();
+#endif
 }
