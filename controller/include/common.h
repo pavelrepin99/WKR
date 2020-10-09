@@ -4,10 +4,10 @@
 #include <ch.h>
 #include <hal.h>
 
-#define LED1 1 /*смена состояния LINE_LED1*/
-#define LED2 2 /*непрерывно горит LINE_LED1*/
-#define LED3 3 /*таймер GPT*/
-#define PORT3 4 /*цифровой выход*/
+#define LED1 1 /*palToggleLine*/
+#define LED2 2 /*palSetLine*/
+#define LED3 3 /*GPT*/
+#define PORT3 4 /*PG3 and GPT*/
  
 #define MAIN_CHECK 1
 
