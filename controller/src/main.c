@@ -1,4 +1,5 @@
 #include <common.h>
+#include <tests.h>
 
 void search_test(void);
 
@@ -11,13 +12,13 @@ int main(void)
 
 void search_test(void)
 {
-#if (MAIN_CHECK == LED1)
+#if (MAIN_PROGRAM_ROUTINE == PROGRAM_ROUTINE_TEST_LED1)
     testLED1();
-#elif (MAIN_CHECK == LED2)
+#elif (MAIN_PROGRAM_ROUTINE == PROGRAM_ROUTINE_TEST_LED2)
     testLED2();
-#elif (MAIN_CHECK == LED3)
+#elif (MAIN_PROGRAM_ROUTINE == PROGRAM_ROUTINE_TEST_LED3)
     testGPT();
-#elif (MAIN_CHECK == PORT3)
-    testPORT();
+#elif (MAIN_PROGRAM_ROUTINE == PROGRAM_ROUTINE_TEST_PORT3)
+    testPG3();
 #endif
 }

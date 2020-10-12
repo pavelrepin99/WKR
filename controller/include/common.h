@@ -4,16 +4,11 @@
 #include <ch.h>
 #include <hal.h>
 
-#define LED1 1 /*palToggleLine*/
-#define LED2 2 /*palSetLine*/
-#define LED3 3 /*GPT*/
-#define PORT3 4 /*PG3 and GPT*/
+#define PROGRAM_ROUTINE_TEST_LED1 0 /*palToggleLine*/
+#define PROGRAM_ROUTINE_TEST_LED2 1 /*palSetLine*/
+#define PROGRAM_ROUTINE_TEST_LED3 2 /*GPT*/
+#define PROGRAM_ROUTINE_TEST_PORT3 3 /*PG3 and GPT*/
  
-#define MAIN_CHECK 1
-
-void testLED1(void);
-void testLED2(void);
-void testGPT(void);
-void testPORT(void);
+#define MAIN_PROGRAM_ROUTINE PROGRAM_ROUTINE_TEST_PORT3
 
 #endif

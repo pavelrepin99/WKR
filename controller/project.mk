@@ -1,9 +1,7 @@
-PROJECT_TESTS   = tests/testGPT.c     \
-                  tests/testLED1.c    \
-                  tests/testLED2.c    \
-                  tests/testPORT.c    \
+PROJECT_TESTS   = tests/test_tmp_control.c     \
 # C source files
 PROJECT_CSRC 	= src/main.c          \
+                  src/tmp_control.c   \
                   $(PROJECT_TESTS)
   
 # C++ source files
