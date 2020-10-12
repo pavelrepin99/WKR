@@ -1,7 +1,7 @@
 #include <common.h>
 #include <tests.h>
 
-void search_test(void);
+static void search_test(void);
 
 int main(void)
 {
@@ -10,7 +10,7 @@ int main(void)
     search_test();
 }
 
-void search_test(void)
+static void search_test(void)
 {
 #if (MAIN_PROGRAM_ROUTINE == PROGRAM_ROUTINE_TEST_LED1)
     testLED1();
