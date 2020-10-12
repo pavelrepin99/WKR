@@ -7,7 +7,7 @@ GPTConfig gpt3conf = {
         .cr2          = 0,
         .dier         = 0
     };
-void GPT_control(void)
+void GPTcontrol(void)
 {
     GPTDriver *delayDriver =&GPTD3;
     gptStart(delayDriver, &gpt3conf);
@@ -21,7 +21,7 @@ void GPT_control(void)
     }
 }
 
-void led1_control(void)
+void led1control(void)
 {
     while (true)
         {
@@ -30,7 +30,7 @@ void led1_control(void)
         }
 }
 
-void led2_control(void)
+void led2control(void)
 {
     while (true)
         {
@@ -38,7 +38,7 @@ void led2_control(void)
         }
 }
 
-void PG3_control(void)
+void PG3control(void)
 {
     GPTDriver *delayDriver =&GPTD3;
     gptStart(delayDriver, &gpt3conf);

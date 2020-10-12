@@ -3,20 +3,20 @@
 
 void testLED1(void)
 {
-   led1_control();
+   led1control();
 }
 
 void testLED2(void)
 {
-  led2_control();
+  led2control();
 }
 
 void testGPT(void)
 {
-    GPT_control();
+    GPTcontrol();
 } 
 
 void testPG3(void)
 {
-    PG3_control();
+    PG3control();
 }
