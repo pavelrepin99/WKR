@@ -1,9 +1,10 @@
 #include <tmp_control.h>
 #include <tests.h>
-const int period = 10000;
+#define T 10000
+#define F 500000
 PWMConfig pwm1conf = {
-    .frequency = 500000,
-    .period = 10000,
+    .frequency = F,
+    .period = T,
     .callback = NULL,
     .channels = {
                  {.mode = PWM_OUTPUT_DISABLED, .callback = NULL},
@@ -14,20 +15,30 @@ PWMConfig pwm1conf = {
     .cr2 = 0,
     .dier = 0
 };
-void PWMcontrol(int duty_cycle)
+void Init(void)
+{
+    palSetLineMode(PAL_LINE(GPIOB,0),PAL_MODE_ALTERNATE(2));
+    pwmStart(&PWMD3,&pwm1conf);
+}
+int32_t Check(int32_t duty_cycle, int8_t low,int8_t high)
 {
     if(duty_cycle<0)
     {
-        duty_cycle = 0;
+        duty_cycle = low;
     }
-    else if(duty_cycle>100)
+    else if(duty_cycle>=100)
     {
-        duty_cycle = 100;
+        duty_cycle = high;
     }
-    duty_cycle = duty_cycle*period/100;
-    palSetLineMode(PAL_LINE(GPIOB,0),PAL_MODE_ALTERNATE(2));
-    pwmStart(&PWMD3,&pwm1conf);
+    return duty_cycle;
+}
+
+void PWMcontrol(int32_t duty_cycle)
+{
+    duty_cycle = Check(duty_cycle,0,100);
+    duty_cycle = duty_cycle*T/100;
     pwmEnableChannel(&PWMD3,2,duty_cycle);
 }
+
 
 

@@ -3,6 +3,7 @@
 
 #include <ch.h>
 #include <hal.h>
+#include <stdint.h>
 
 #define PROGRAM_ROUTINE_MASTER 0
 #define PROGRAM_ROUTINE_TEST_PWM 1
