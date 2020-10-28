@@ -1,22 +1,18 @@
 #include <tests.h>
 #include <tmp_control.h>
 
-void testLED1(void)
+void testPWM(void)
 {
-   led1control();
-}
-
-void testLED2(void)
-{
-  led2control();
-}
-
-void testGPT(void)
-{
-    GPTcontrol();
-} 
-
-void testPG3(void)
-{
-    PG3control();
+    int8_t a;
+    Init();
+    while(1)
+    {
+        for(a=0; a<=100; a+=10)
+        {
+            PWMcontrol(a);
+            chThdSleepSeconds(1);
+            a=Check(a,0, 100);
+        }  
+        a=0;
+    }
 }
