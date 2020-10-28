@@ -1,5 +1,6 @@
 #include <tmp_control.h>
 #include <tests.h>
+
 #define T 10000
 #define F 500000
 PWMConfig pwm1conf = {
@@ -39,6 +40,5 @@ void PWMcontrol(int32_t duty_cycle)
     duty_cycle = duty_cycle*T/100;
     pwmEnableChannel(&PWMD3,2,duty_cycle);
 }
-
 
 

@@ -1,5 +1,6 @@
 #include <tests.h>
 #include <tmp_control.h>
+
 void testPWM(void)
 {
     int8_t a;
