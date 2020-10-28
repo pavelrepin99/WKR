@@ -22,11 +22,11 @@ void Init(void)
 }
 int32_t Check(int32_t duty_cycle, int8_t low,int8_t high)
 {
-    if(duty_cycle<0)
+    if(duty_cycle<low)
     {
         duty_cycle = low;
     }
-    else if(duty_cycle>=100)
+    else if(duty_cycle>=high)
     {
         duty_cycle = high;
     }
