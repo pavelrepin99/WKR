@@ -77,6 +77,7 @@ void lldControlSetSteerMotorPower(int32_t duty_cycle)
         duty_cycle=Check(duty_cycle,RIGHT,CENTER);
     }
     lldControlSetSteerMotorRawPower(duty_cycle);
+
 }
 
 
