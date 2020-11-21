@@ -11,7 +11,7 @@ void testRawPower(void)
     systime_t time = chVTGetSystemTime();
     while(1)
     {
-        for(a=1650; a>=500; a-=500)
+        for(a=1650; a>=500; a-=200)
         {
             lldControlSetSteerMotorRawPower(a);
             time = chThdSleepUntilWindowed (time, S2ST(2)+time);
@@ -29,7 +29,7 @@ void testPower(void)
     systime_t time = chVTGetSystemTime();
     while(1)
     {
-        for(a=-100; a<=100;a+=10)
+        for(a=-100; a<=100;a+=30)
         {
             lldControlSetSteerMotorPower(a);
             time = chThdSleepUntilWindowed (time, S2ST(2)+time);
