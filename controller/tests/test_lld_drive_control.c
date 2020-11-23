@@ -30,6 +30,7 @@ void testPowerSteeringWheel(void)
     systime_t time = chVTGetSystemTime();
     while(1)
     {
+
         for(a=MIN_STEERING_WHEEL; a<=MAX_STEERING_WHEEL;a+=30)
         {
             lldControlSetSteerMotorPower(a);
