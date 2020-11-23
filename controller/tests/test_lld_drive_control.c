@@ -1,39 +1,41 @@
 #include <tests.h>
 #include <lld_drive_control.h>
 
-/**
- * @brief Test for raw duty cycle
+/*
+ * @brief Test for steering wheel raw duty cycle
  */
-void testRawPower(void)
+void testRawPowerSteeringWheel(void)
 {
     int32_t a;
     lldDriveControlInit();
     systime_t time = chVTGetSystemTime();
     while(1)
     {
-        for(a=1650; a>=500; a-=500)
+        for(a=LEFT_STEERING_WHEEL; a>=RIGHT_STEERING_WHEEL; a-=200)
         {
             lldControlSetSteerMotorRawPower(a);
             time = chThdSleepUntilWindowed (time, S2ST(2)+time);
          }
-        a=1650;
+        a=LEFT_STEERING_WHEEL;
+        time = chThdSleepUntilWindowed (time, S2ST(2)+time);
      }
 }
-/**
- * @brief Test for duty cycle percentage
+/*
+ * @brief Test for steering wheel duty cycle percentage
  */
-void testPower(void)
+void testPowerSteeringWheel(void)
 {
     int32_t a;
     lldDriveControlInit();
     systime_t time = chVTGetSystemTime();
     while(1)
     {
-        for(a=-100; a<=100;a+=10)
+        for(a=MIN_STEERING_WHEEL; a<=MAX_STEERING_WHEEL;a+=30)
         {
             lldControlSetSteerMotorPower(a);
             time = chThdSleepUntilWindowed (time, S2ST(2)+time);
         }
-        a=-100;
+        a=MIN_STEERING_WHEEL;
+        time = chThdSleepUntilWindowed (time, S2ST(2)+time);
     }
 }

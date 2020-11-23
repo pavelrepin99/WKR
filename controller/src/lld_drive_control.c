@@ -1,12 +1,12 @@
 #include <lld_drive_control.h>
-#include <tests.h>
+
 #define T 10000
 #define F 1000000
-#define CENTER 1140
-#define RIGHT 500
-#define LEFT 1650
+#define DIFF_LEFT_SW LEFT_STEERING_WHEEL-CENTER_STEERING_WHEEL
+#define DIFF_RIGHT_SW CENTER_STEERING_WHEEL-RIGHT_STEERING_WHEEL
 
-bool init = false;
+static bool init = false;
+
 PWMConfig pwm1conf = {
     .frequency = F,
     .period = T,
@@ -14,7 +14,7 @@ PWMConfig pwm1conf = {
     .channels = {
                  {.mode = PWM_OUTPUT_DISABLED, .callback = NULL},
                  {.mode = PWM_OUTPUT_ACTIVE_HIGH,    .callback = NULL},
-                 {.mode = PWM_OUTPUT_DISABLED,    .callback = NULL},// Channel 2 is working CH3 = PB0
+                 {.mode = PWM_OUTPUT_DISABLED,    .callback = NULL},
                  {.mode = PWM_OUTPUT_DISABLED,    .callback = NULL}
                  },
     .cr2 = 0,
@@ -26,55 +26,42 @@ PWMConfig pwm1conf = {
  */
 void lldDriveControlInit(void)
 {
-    if(init == false)
+    if(init)
+    return;
     {
         palSetLineMode(PAL_LINE(GPIOE,11),PAL_MODE_ALTERNATE(1));
         pwmStart(&PWMD1,&pwm1conf);
     }
     init = true;
 }
-/**
- * @brief Overflow protection
- */
-int32_t Check(int32_t duty_cycle, int32_t low,int32_t high)
-{
-    if(duty_cycle<low)
-    {
-        duty_cycle = low;
-    }
-    else if(duty_cycle>=high)
-    {
-        duty_cycle = high;
-    }
-    return duty_cycle;
-}
+
 /**
  * @brief Set raw duty cycle for servo
+ * @args duty_sycle is raw value
  */
 void lldControlSetSteerMotorRawPower(int32_t duty_cycle)
 {
-    duty_cycle = Check(duty_cycle, RIGHT, LEFT);
+    duty_cycle = Check(duty_cycle, RIGHT_STEERING_WHEEL, LEFT_STEERING_WHEEL);
     pwmEnableChannel(&PWMD1,1,duty_cycle);
 }
 /**
  * @brief Set duty cycle percentage for servo
+ * @args duty_cycle is percentage value
  */
 void lldControlSetSteerMotorPower(int32_t duty_cycle)
 {
-    duty_cycle = Check(duty_cycle, -100, 100);
+    duty_cycle = Check(duty_cycle, MIN_STEERING_WHEEL, MAX_STEERING_WHEEL);
     if(duty_cycle<0)
     {
-        duty_cycle=(duty_cycle*(LEFT-CENTER)/(-100)+CENTER);
-        duty_cycle=Check(duty_cycle,CENTER, LEFT);
+        duty_cycle=(duty_cycle*(DIFF_LEFT_SW )*(-0.01)+CENTER_STEERING_WHEEL);
     }
     else if(duty_cycle==0)
     {
-        duty_cycle=CENTER;
+        duty_cycle=CENTER_STEERING_WHEEL;
     }
     else if(duty_cycle>0)
     {
-        duty_cycle=CENTER-duty_cycle*RIGHT/100;
-        duty_cycle=Check(duty_cycle,RIGHT,CENTER);
+        duty_cycle=CENTER_STEERING_WHEEL-duty_cycle*(DIFF_RIGHT_SW)*0.01;
     }
     lldControlSetSteerMotorRawPower(duty_cycle);
 
