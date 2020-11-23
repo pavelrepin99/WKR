@@ -2,10 +2,11 @@
 
 #define T 10000
 #define F 1000000
-#define DIFF_LEFT_SW LEFT_STEERING_WHEEL-CENTER_STEERING_WHEEL
-#define DIFF_RIGHT_SW CENTER_STEERING_WHEEL-RIGHT_STEERING_WHEEL
 
 static bool init = false;
+float steer_k_left = 0;
+float steer_k_right = 0;
+float steer_b = 0;
 
 PWMConfig pwm1conf = {
     .frequency = F,
@@ -28,10 +29,11 @@ void lldDriveControlInit(void)
 {
     if(init)
     return;
-    {
-        palSetLineMode(PAL_LINE(GPIOE,11),PAL_MODE_ALTERNATE(1));
-        pwmStart(&PWMD1,&pwm1conf);
-    }
+    palSetLineMode(PAL_LINE(GPIOE,11),PAL_MODE_ALTERNATE(1));
+    pwmStart(&PWMD1,&pwm1conf);
+    steer_k_left = (LEFT_STEERING_WHEEL-CENTER_STEERING_WHEEL)*(-0.01);
+    steer_b = CENTER_STEERING_WHEEL;
+    steer_k_right = (CENTER_STEERING_WHEEL-RIGHT_STEERING_WHEEL)*0.01;
     init = true;
 }
 
@@ -53,15 +55,15 @@ void lldControlSetSteerMotorPower(int32_t duty_cycle)
     duty_cycle = Check(duty_cycle, MIN_STEERING_WHEEL, MAX_STEERING_WHEEL);
     if(duty_cycle<0)
     {
-        duty_cycle=(duty_cycle*(DIFF_LEFT_SW )*(-0.01)+CENTER_STEERING_WHEEL);
+        duty_cycle=duty_cycle*steer_k_left+steer_b;
     }
     else if(duty_cycle==0)
     {
-        duty_cycle=CENTER_STEERING_WHEEL;
+        duty_cycle=steer_b;
     }
     else if(duty_cycle>0)
     {
-        duty_cycle=CENTER_STEERING_WHEEL-duty_cycle*(DIFF_RIGHT_SW)*0.01;
+        duty_cycle=steer_b-duty_cycle*steer_k_right;
     }
     lldControlSetSteerMotorRawPower(duty_cycle);
 
