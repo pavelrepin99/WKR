@@ -15,7 +15,9 @@ int main(void)
 
 static void searchtest(void)
 {
-#if (MAIN_PROGRAM_ROUTINE == PROGRAM_ROUTINE_TEST_PWM)
-    testPWM();
+#if (MAIN_PROGRAM_ROUTINE == PROGRAM_ROUTINE_TEST_RAW_POWER_STEER)
+    testRawPowerSteeringWheel();
+#elif (MAIN_PROGRAM_ROUTINE == PROGRAM_ROUTINE_TEST_POWER_STEER)
+    testPowerSteeringWheel();
 #endif
 }
