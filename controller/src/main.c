@@ -19,5 +19,9 @@ static void searchtest(void)
     testRawPowerSteeringWheel();
 #elif (MAIN_PROGRAM_ROUTINE == PROGRAM_ROUTINE_TEST_POWER_STEER)
     testPowerSteeringWheel();
+#elif (MAIN_PROGRAM_ROUTINE == PROGRAM_ROUTINE_TEST_RAW_SPEED_MOTOR)
+    testRawPowerSpeedMotor();
+#elif (MAIN_PROGRAM_ROUTINE == PROGRAM_ROUTINE_TEST_SPEED_MOTOR)
+    testPowerSpeedMotor();
 #endif
 }
