@@ -16,5 +16,15 @@ void testRawPowerSteeringWheel(void);
  */
 void testPowerSteeringWheel(void);
 
+/*
+ * @brief Test for speed motor raw duty cycle
+ */
+void testRawPowerSpeedMotor(void);
+
+/*
+ * @brief Test for speed motor duty cycle percentage
+ */
+void testPowerSpeedMotor(void);
+
 #endif
 
