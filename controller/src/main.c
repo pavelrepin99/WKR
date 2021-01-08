@@ -23,5 +23,7 @@ static void searchtest(void)
     testRawPowerSpeedMotor();
 #elif (MAIN_PROGRAM_ROUTINE == PROGRAM_ROUTINE_TEST_SPEED_MOTOR)
     testPowerSpeedMotor();
+#elif (MAIN_PROGRAM_ROUTINE == PROGRAM_ROUTINE_TEST_UART)
+    testUart();
 #endif
 }

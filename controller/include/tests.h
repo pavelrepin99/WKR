@@ -25,5 +25,8 @@ void testRawPowerSpeedMotor(void);
  * @brief Test for speed motor duty cycle percentage
  */
 void testPowerSpeedMotor(void);
-
+/*
+ * @brief Test work UART
+ */
+void testUart(void);
 #endif

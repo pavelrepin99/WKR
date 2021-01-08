@@ -1,4 +1,4 @@
-PROJECT_MODULES = src/lld_drive_control.c  \
+PROJECT_MODULES = src/lld_drive_control.c  src/debug.c \
 
 PROJECT_TESTS   = tests/test_lld_drive_control.c \
 # C source files

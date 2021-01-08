@@ -1,5 +1,6 @@
 #include <tests.h>
 #include <lld_drive_control.h>
+#include <debug.h>
 
 /*
  * @brief Test for steering wheel raw duty cycle
@@ -108,5 +109,22 @@ void testPowerSpeedMotor(void)
         }
         time = chThdSleepUntilWindowed (time, S2ST(2)+time);
         a=0;
+    }
+}
+/*
+ * @brief Test work UART
+ */
+void testUart(void)
+{   int32_t i;
+    debug_stream_init();
+    systime_t time = chVTGetSystemTime();
+    while(1)
+    {   for(i=1; i<=100; i++)
+        {
+            dbgprintf("I am the danger!, %d\n\r",i);
+            time = chThdSleepUntilWindowed (time, MS2ST(500)+time);
+        }
+        i=1;
+        time = chThdSleepUntilWindowed (time, MS2ST(500)+time);
     }
 }
