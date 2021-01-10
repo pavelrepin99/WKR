@@ -5,16 +5,12 @@
  * @brief Test work UART
  */
 void testUart(void)
-{   int32_t i;
+{   int32_t i=1;
     debug_stream_init();
     systime_t time = chVTGetSystemTime();
-    while(1)
-    {   for(i=1; i<=100; i++)
-        {
-            dbgprintf("I am the danger!, %d\n\r",i);
-            time = chThdSleepUntilWindowed (time, MS2ST(500)+time);
-        }
-        i=1;
+    while(i<=100)
+    { 
+        dbgprintf("I am the danger!, %d\n\r",i++);
         time = chThdSleepUntilWindowed (time, MS2ST(500)+time);
     }
 }
