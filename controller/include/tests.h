@@ -1,7 +1,8 @@
-#include <common.h>
-
 #ifndef INCLUDE_TESTS_H
 #define INCLUDE_TESTS_H
+
+#include <common.h>
+
 /*------------------------------------------*/
 /* Test drive control                      */
 /*-----------------------------------------*/
@@ -25,6 +26,11 @@ void testRawPowerSpeedMotor(void);
  * @brief Test for speed motor duty cycle percentage
  */
 void testPowerSpeedMotor(void);
+
+/*
+ * @brief Test work UART
+ */
+void testUart(void);
 
 #endif
 
