@@ -27,4 +27,9 @@ void testRawPowerSpeedMotor(void);
  */
 void testPowerSpeedMotor(void);
 
+/*
+ * @brief Test work UART
+ */
+void testUart(void);
+
 #endif

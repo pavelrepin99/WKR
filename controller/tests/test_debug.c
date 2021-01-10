@@ -1,4 +1,4 @@
-#include <test_debug.h>
+#include <tests.h>
 #include <debug.h>
 
 /*
