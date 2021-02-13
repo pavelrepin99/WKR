@@ -31,5 +31,10 @@ void testPowerSpeedMotor(void);
  * @brief Test work UART
  */
 void testUart(void);
+/**
+ * @testing the encoder
+ * @note variable of encoder displayed in Serial
+ */
+void testEncoderCommonRoutines(void);
 
 #endif

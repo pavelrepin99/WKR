@@ -4,7 +4,7 @@
 #include <ch.h>
 #include <hal.h>
 #include <stdint.h>
-
+#include <stdlib.h>
 
 #define PROGRAM_ROUTINE_MASTER 0
 #define PROGRAM_ROUTINE_TEST_RAW_POWER_STEER 1
@@ -12,8 +12,9 @@
 #define PROGRAM_ROUTINE_TEST_RAW_SPEED_MOTOR 3
 #define PROGRAM_ROUTINE_TEST_SPEED_MOTOR 4
 #define PROGRAM_ROUTINE_TEST_UART 5
+#define PROGRAM_ROUTINE_TEST_ENCODER 6
 
-#define MAIN_PROGRAM_ROUTINE 5
+#define MAIN_PROGRAM_ROUTINE 6
 
 /**
  * @brief Overflow protection

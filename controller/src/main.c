@@ -25,5 +25,7 @@ static void searchtest(void)
     testPowerSpeedMotor();
 #elif (MAIN_PROGRAM_ROUTINE == PROGRAM_ROUTINE_TEST_UART)
     testUart();
+#elif (MAIN_PROGRAM_ROUTINE == PROGRAM_ROUTINE_TEST_ENCODER)
+    testEncoderCommonRoutines();
 #endif
 }
