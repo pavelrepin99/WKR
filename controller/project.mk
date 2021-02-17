@@ -1,6 +1,6 @@
-PROJECT_MODULES = src/lld_drive_control.c  src/debug.c src/lld_encoder.c \
+PROJECT_MODULES = src/lld_drive_control.c  src/debug.c src/lld_encoder.c src/robot_odometry.c \
 
-PROJECT_TESTS   = tests/test_lld_drive_control.c tests/test_debug.c tests/test_lld_encoder.c\
+PROJECT_TESTS   = tests/test_lld_drive_control.c tests/test_debug.c tests/test_lld_encoder.c tests/test_robot_odometry.c\
 # C source files
 PROJECT_CSRC 	= src/main.c src/common.c $(PROJECT_MODULES) $(PROJECT_TESTS) 
 # C++ source files

@@ -27,5 +27,7 @@ static void searchtest(void)
     testUart();
 #elif (MAIN_PROGRAM_ROUTINE == PROGRAM_ROUTINE_TEST_ENCODER)
     testEncoderCommonRoutines();
+#elif (MAIN_PROGRAM_ROUTINE == PROGRAM_ROUTINE_ROBOT_ODOMETRY)
+    testRobotOdometryDistance();
 #endif
 }
