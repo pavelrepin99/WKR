@@ -25,7 +25,7 @@ static void extcb( EXTDriver *extp, expchannel_t channel )
         direction_rotation = 0;
         tic_count-=1;
     }
-    if(abs(tic_count) > MAX_TIC )
+    if(abs(tic_count) >= MAX_TIC )
     {
         tic_count=0;
         if(direction_rotation == 1)
