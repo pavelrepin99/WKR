@@ -1,10 +1,12 @@
 #ifndef INCLUDE_COMMON_H
 #define INCLUDE_COMMON_H
 
+#define _USE_MATH_DEFINES
 #include <ch.h>
 #include <hal.h>
 #include <stdint.h>
 #include <stdlib.h>
+#include <math.h>
 
 #define PROGRAM_ROUTINE_MASTER 0
 #define PROGRAM_ROUTINE_TEST_RAW_POWER_STEER 1
@@ -13,8 +15,12 @@
 #define PROGRAM_ROUTINE_TEST_SPEED_MOTOR 4
 #define PROGRAM_ROUTINE_TEST_UART 5
 #define PROGRAM_ROUTINE_TEST_ENCODER 6
+#define PROGRAM_ROUTINE_ROBOT_ODOMETRY 7
 
-#define MAIN_PROGRAM_ROUTINE 6
+#define MAIN_PROGRAM_ROUTINE 7
+
+#define Wheel_Radius 4
+#define k 0.105
 
 /**
  * @brief Overflow protection

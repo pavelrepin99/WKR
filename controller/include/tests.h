@@ -37,5 +37,11 @@ void testUart(void);
  */
 void testEncoderCommonRoutines(void);
 
+/**
+ * @brief test odometry to get distance
+ * @note unit of CM
+ */
+void testRobotOdometryDistance(void);
+
 #endif
 
