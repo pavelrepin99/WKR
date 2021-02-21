@@ -29,5 +29,7 @@ static void searchtest(void)
     testEncoderCommonRoutines();
 #elif (MAIN_PROGRAM_ROUTINE == PROGRAM_ROUTINE_ROBOT_ODOMETRY)
     testRobotOdometryDistance();
+#elif (MAIN_PROGRAM_ROUTINE == PROGRAM_ROUTINE_ROBOT_ODOMETRY_SPEED)
+    testRobotOdometrySpeedandPressS();
 #endif
 }

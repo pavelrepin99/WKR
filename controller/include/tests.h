@@ -43,4 +43,15 @@ void testEncoderCommonRoutines(void);
  */
 void testRobotOdometryDistance(void);
 
+/**
+ * @brief test odometry to get speed of robot and speed of encoder
+ */
+void testRobotOdometrySpeed(void);
+
+/**
+ * @brief test odometry to get speed of robot and speed of encoder
+ * @note press 's' call reset variables speed
+ */
+void testRobotOdometrySpeedandPressS(void);
+
 #endif
