@@ -30,6 +30,6 @@ static void searchtest(void)
 #elif (MAIN_PROGRAM_ROUTINE == PROGRAM_ROUTINE_ROBOT_ODOMETRY)
     testRobotOdometryDistance();
 #elif (MAIN_PROGRAM_ROUTINE == PROGRAM_ROUTINE_ROBOT_ODOMETRY_SPEED)
-    testRobotOdometrySpeedandPressS();
+    testRobotOdometryReset();
 #endif
 }

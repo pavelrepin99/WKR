@@ -12,12 +12,11 @@ void testRobotOdometrySpeed(void)
     float speed_enc = 0;
     debug_stream_init();
     systime_t time = chVTGetSystemTime();
-    lldEncoderInit();
     odometryInit();
     while(1)
     {
-        speed_robot = odometryGetRobotSpeed(CM_S)*10000;
-        speed_enc = odometryGetEncoderSpeed()*100000;
+        speed_robot = odometryGetRobotSpeed(CM_S);
+        speed_enc = odometryGetEncoderSpeed();
         dbgprintf("Speed_enc:%d Speed_robot:%d \n\r",
                   (int)speed_enc,(int)speed_robot);
         time = chThdSleepUntilWindowed (time, MS2ST(100)+time);
@@ -28,13 +27,12 @@ void testRobotOdometrySpeed(void)
  * @brief test odometry to get speed of robot and speed of encoder
  * @note press 's' call reset variables speed
  */
-void testRobotOdometrySpeedandPressS(void)
+void testRobotOdometryReset(void)
 {
     float speed_robot = 0;
     float speed_enc = 0;
     char sym = 0;
     debug_stream_init();
-    lldEncoderInit();
     odometryInit();
     systime_t time = chVTGetSystemTime();
     while(1)
@@ -44,8 +42,8 @@ void testRobotOdometrySpeedandPressS(void)
         {
             odometryReset();
         }
-        speed_robot = odometryGetRobotSpeed(M_S)*10000;
-        speed_enc = odometryGetEncoderSpeed()*100000;
+        speed_robot = odometryGetRobotSpeed(CM_S);
+        speed_enc = odometryGetEncoderSpeed();
         dbgprintf("Speed_enc:%d Speed_robot:%d \n\r",
                   (int)speed_enc,(int)speed_robot);
         time = chThdSleepUntilWindowed (time, MS2ST(100)+time);

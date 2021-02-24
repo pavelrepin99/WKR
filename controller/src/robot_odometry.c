@@ -11,6 +11,8 @@ float turn = 0;
 float prev_turn = 0;
 float dist = 0;
 float prev_dist = 0;
+#define VTIME_PERIOD_MS 10
+#define MS_TO_SEC 100
 
 /**
  * @brief handler interrupt of virtual timer
@@ -18,13 +20,15 @@ float prev_dist = 0;
 static void tim_s(void *arg)
 {
     (void)arg;
-    dist = odometryGetRobotDistance(CM)*0.001;
-    speed = (dist - prev_dist)*0.001;
+    dist = odometryGetRobotDistance(CM)/CM;
+    speed = (dist - prev_dist)*MS_TO_SEC;
     prev_dist = dist;
     turn = lldGetEncoderRawRevs();
-    speed_enc = (turn - prev_turn)*0.001;
+    speed_enc = (turn - prev_turn)*MS_TO_SEC;
     prev_turn = turn;
-    chVTSetI(&speed_t, MS2ST(10), tim_s, NULL);
+    chSysLockFromISR();
+    chVTSetI(&speed_t, MS2ST(VTIME_PERIOD_MS), tim_s, NULL);
+    chSysUnlockFromISR();
 }
 
 /**
@@ -35,8 +39,9 @@ void odometryInit(void)
 {
     if(init_tim)
         return;
+    lldEncoderInit();
     chVTObjectInit(&speed_t);
-    chVTSet(&speed_t, MS2ST(10), tim_s, NULL);
+    chVTSet(&speed_t, MS2ST(VTIME_PERIOD_MS), tim_s, NULL);
     init_tim = true;
 }
 
