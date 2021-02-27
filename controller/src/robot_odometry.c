@@ -11,8 +11,13 @@ float turn = 0;
 float prev_turn = 0;
 float dist = 0;
 float prev_dist = 0;
+float previous_filtered_speed_lpf = 0; 
+float current_speed = 0;
+float filtered_speed = 0;
 #define VTIME_PERIOD_MS 10
 #define MS_TO_SEC 100
+#define FILTER 1
+#define K 0.5
 
 /**
  * @brief handler interrupt of virtual timer
@@ -21,8 +26,14 @@ static void tim_s(void *arg)
 {
     (void)arg;
     dist = odometryGetRobotDistance(CM)/CM;
-    speed = (dist - prev_dist)*MS_TO_SEC;
+    current_speed = (dist - prev_dist)*MS_TO_SEC;
     prev_dist = dist;
+    #ifdef FILTER
+        filtered_speed = current_speed * (1-K) + previous_filtered_speed_lpf * K;
+        previous_filtered_speed_lpf = filtered_speed;
+        current_speed = filtered_speed;
+    #endif
+    speed = current_speed;
     turn = lldGetEncoderRawRevs();
     speed_enc = (turn - prev_turn)*MS_TO_SEC;
     prev_turn = turn;
