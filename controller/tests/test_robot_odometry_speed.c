@@ -37,7 +37,7 @@ void testRobotOdometryReset(void)
     systime_t time = chVTGetSystemTime();
     while(1)
     {
-        sym = sdGetTimeout(&SD3, US2ST(1));
+        sym = sdGetTimeout(&SD3, TIME_IMMEDIATE);
         if(sym == 's')
         {
             odometryReset();
