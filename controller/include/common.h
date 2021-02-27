@@ -7,6 +7,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <math.h>
+#include <stdio.h>
 
 #define PROGRAM_ROUTINE_MASTER 0
 #define PROGRAM_ROUTINE_TEST_RAW_POWER_STEER 1
@@ -16,8 +17,9 @@
 #define PROGRAM_ROUTINE_TEST_UART 5
 #define PROGRAM_ROUTINE_TEST_ENCODER 6
 #define PROGRAM_ROUTINE_ROBOT_ODOMETRY 7
+#define PROGRAM_ROUTINE_ROBOT_ODOMETRY_SPEED 8
 
-#define MAIN_PROGRAM_ROUTINE 7
+#define MAIN_PROGRAM_ROUTINE 8
 
 #define Wheel_Radius 4
 #define k 0.105
