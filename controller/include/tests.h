@@ -54,4 +54,12 @@ void testRobotOdometrySpeed(void);
  */
 void testRobotOdometryReset(void);
 
+/*
+ * @brief Test get data from ADC and control servo
+ * @note s - +20%
+ *       d - -10%
+ *       ' ' - 0%
+ */
+void testSteerAngle(void);
+
 #endif
