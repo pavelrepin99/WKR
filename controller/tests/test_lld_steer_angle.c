@@ -3,6 +3,11 @@
 #include <lld_drive_control.h>
 #include <lld_steer_angle.h>
 
+#define INCREASE_ANGLE 20
+#define DECRISE_ANGLE 10
+
+int unit = DEG;
+
 /*
  * @brief Test get data from ADC and control servo
  * @note s - +20%
@@ -21,24 +26,22 @@ void testSteerAngle(void)
     while(1)
     {
         sym = sdGetTimeout(&SD3, TIME_IMMEDIATE);
-        if(sym == ' ')
+        switch(sym)
         {
-            angle_servo = 0;
+            case ' ':
+                angle_servo = 0;
+                duty_cycle = 0;
+                break;
+            case 's':
+                duty_cycle += INCREASE_ANGLE;
+                angle_servo = lldGetSteerAngle(unit);
+                break;
+            case 'd':
+                duty_cycle -= DECRISE_ANGLE;
+                angle_servo = lldGetSteerAngle(unit);
+                break;
         }
-        else
-        {
-            if(sym == 's')
-            {
-                duty_cycle += 20;
-                lldControlSetSteerMotorPower(duty_cycle);
-            }
-            else if(sym == 'd')
-            {
-                duty_cycle -= 10;
-                lldControlSetSteerMotorPower(duty_cycle);
-            }
-            angle_servo = lldGetSteerAngle(RAD);
-        }
+        lldControlSetSteerMotorPower(duty_cycle);
         dbgprintf("Angle:%d \n\r",(int)angle_servo);
         time = chThdSleepUntilWindowed (time, MS2ST(100)+time);
     }

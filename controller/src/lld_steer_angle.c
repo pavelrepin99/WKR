@@ -32,20 +32,14 @@ static void adccallback(ADCDriver *adcp, adcsample_t *buffer, size_t n)
   angle = filtered_adc;
 }
 
-static void adcerrorcallback(ADCDriver *adcp, adcerror_t err) {
-
-  (void)adcp;
-  (void)err;
-}
-
 static const ADCConversionGroup adcgrpcfg1 = {
   .circular     = true,
   .num_channels = ADC1_NUM_CHANNELS,
   .end_cb       = adccallback,
-  .error_cb     = adcerrorcallback,
+  .error_cb     = 0,
   .cr1          = 0,
   .cr2          = ADC_CR2_EXTEN_RISING | ADC_CR2_EXTSEL_SRC(0b1100),
-  .smpr1        = ADC_SMPR1_SMP_AN10(ADC_SAMPLE_144),
+  .smpr1        = ADC_SMPR1_SMP_AN10(ADC_SAMPLE_480),
   .smpr2        = 0,
   .sqr1         = ADC_SQR1_NUM_CH(ADC1_NUM_CHANNELS),
   .sqr2         = 0,
@@ -61,8 +55,8 @@ void lldSteerAngleInit(void)
     if(InitSteer)
         return;
     adcStart(&ADCD1, NULL);
-    adcStartConversion(&ADCD1, &adcgrpcfg1, samples1, ADC1_BUF_DEPTH);
     palSetLineMode( LINE_ADC123_IN, PAL_MODE_INPUT_ANALOG );
+    adcStartConversion(&ADCD1, &adcgrpcfg1, samples1, ADC1_BUF_DEPTH);
     gptStart(&GPTD4, &gpt4cfg1);
     gptStartContinuous(&GPTD4, gpt4cfg1.frequency/2000);
     steer_a_left = LEFT_STEER - CENTER_STEER;
@@ -77,17 +71,17 @@ void lldSteerAngleInit(void)
  */
 angle_adc lldGetSteerAngle(angle_units unit)
 {
-    if(unit!=1)
+    if(unit!=TICKS)
     {
-        if(unit==4886)
+        if(unit == RAD)
         {
             unit=unit*0.001; //for terminal
         }
-        if(angle <= 1350 && angle >= 970)
+        if(angle <= CENTER_STEER && angle >= RIGHT_STEER)
         {
             angle = (steer_c - angle) / (steer_b_right);
         }
-        else if(angle > 1350 && angle <= 1780)
+        else if(angle > CENTER_STEER && angle <= LEFT_STEER)
         {
             angle = (steer_c - angle) / (steer_a_left);
         }
