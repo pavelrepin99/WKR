@@ -3,30 +3,6 @@
 
 #include <common.h>
 
-/*------------------------------------------*/
-/* Test drive control                      */
-/*-----------------------------------------*/
-
-/*
- * @brief Test for steering wheel raw duty cycle
- */
-void testRawPowerSteeringWheel(void);
-
-/*
- * @brief Test for steering wheel duty cycle percentage
- */
-void testPowerSteeringWheel(void);
-
-/*
- * @brief Test for speed motor raw duty cycle
- */
-void testRawPowerSpeedMotor(void);
-
-/*
- * @brief Test for speed motor duty cycle percentage
- */
-void testPowerSpeedMotor(void);
-
 /*
  * @brief Test work UART
  */
@@ -61,5 +37,15 @@ void testRobotOdometryReset(void);
  *       ' ' - 0%
  */
 void testSteerAngle(void);
+/**
+ * @brief Test for steering wheel and speed motor
+ * @note value raw duty cycle
+ */
+void testRawPowerWheelsRoutine(void);
+/**
+ * @brief Test for steering wheel and speed motor
+ * @note value percentage
+ */
+void testPowerWheelsRoutine(void);
 
 #endif
