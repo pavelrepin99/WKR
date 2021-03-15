@@ -1,113 +1,98 @@
 #include <tests.h>
 #include <lld_drive_control.h>
+#include <debug.h>
 
-/*
- * @brief Test for steering wheel raw duty cycle
- */
-void testRawPowerSteeringWheel(void)
-{
-    int32_t a;
-    lldDriveControlInit();
-    systime_t time = chVTGetSystemTime();
-    while(1)
-    {
-        for(a=LEFT_STEERING_WHEEL; a>=RIGHT_STEERING_WHEEL; a-=200)
-        {
-            lldControlSetSteerMotorRawPower(a);
-            time = chThdSleepUntilWindowed (time, S2ST(2)+time);
-         }
-        a=LEFT_STEERING_WHEEL;
-        time = chThdSleepUntilWindowed (time, S2ST(2)+time);
-     }
-}
-/*
- * @brief Test for steering wheel duty cycle percentage
- */
-void testPowerSteeringWheel(void)
-{
-    int32_t a;
-    lldDriveControlInit();
-    systime_t time = chVTGetSystemTime();
-    while(1)
-    {
+#define speed_delta 200
+#define steer_delta 200
+#define speed_delta_pr 30
+#define steer_delta_pr 30
 
-        for(a=MIN_STEERING_WHEEL; a<=MAX_STEERING_WHEEL;a+=30)
-        {
-            lldControlSetSteerMotorPower(a);
-            time = chThdSleepUntilWindowed (time, S2ST(2)+time);
-        }
-        a=MIN_STEERING_WHEEL;
-        time = chThdSleepUntilWindowed (time, S2ST(2)+time);
-    }
-}
-/*
- * @brief Test for speed motor raw duty cycle
+/**
+ * @brief Test for steering wheel and speed motor
+ * @note value raw duty cycle
  */
-void testRawPowerSpeedMotor(void)
+void testRawPowerWheelsRoutine(void)
 {
-    int32_t a;
+    int32_t speed_value = 0;
+    int32_t steer_value = 0;
+    char sym = 0;
     lldDriveControlInit();
+    debug_stream_init();
     systime_t time = chVTGetSystemTime();
     while(1)
     {
-        for(a=STOP_MOTOR; a<=MAX_SPEED_FORWARD_MOTOR; a+=200)
+        sym = sdGetTimeout(&SD3, TIME_IMMEDIATE);
+        switch(sym)
         {
-            lldControlSetDrivingMotorRawPower(a);
-            time = chThdSleepUntilWindowed (time, S2ST(2)+time);
+            case 'a':
+                speed_value += speed_delta;
+                break;
+            case 'd':
+                speed_value -= speed_delta;
+                break;
+            case ' ':
+                speed_value = STOP_MOTOR;
+                steer_value = CENTER_STEERING_WHEEL;
+                break;
+            case 'q':
+                steer_value += steer_delta;
+                break;
+            case 'e':
+                steer_value -= steer_delta;
+                break;
         }
-        for(a=MAX_SPEED_FORWARD_MOTOR; a>=STOP_MOTOR; a-=200)
-        {
-            a=Check(a,STOP_MOTOR,MAX_SPEED_FORWARD_MOTOR);
-            lldControlSetDrivingMotorRawPower(a);
-            time = chThdSleepUntilWindowed (time, S2ST(2)+time);
-        }
-        for(a=STOP_MOTOR; a>=MAX_SPEED_BACK_MOTOR; a-=200)
-        {
-            lldControlSetDrivingMotorRawPower(a);
-            time = chThdSleepUntilWindowed (time, S2ST(2)+time);
-        }
-        for(a=MAX_SPEED_BACK_MOTOR; a<=STOP_MOTOR; a+=200)
-        {
-            a=Check(a,MAX_SPEED_BACK_MOTOR,STOP_MOTOR);
-            lldControlSetDrivingMotorRawPower(a);
-            time = chThdSleepUntilWindowed (time, S2ST(2)+time);
-        }
-        time = chThdSleepUntilWindowed (time, S2ST(2)+time);
-        a=STOP_MOTOR;
-    }
-}
-/*
- * @brief Test for speed motor duty cycle percentage
- */
-void testPowerSpeedMotor(void)
-{
-    int32_t a;
-    lldDriveControlInit();
-    systime_t time = chVTGetSystemTime();
-    while(1)
-    {
-        for(a=0; a<=MAX_FORWARD_MOTOR; a+=30)
-        {
-            lldControlSetDrivingMotorPower(a);
-            time = chThdSleepUntilWindowed (time, S2ST(2)+time);
-        }
-        for(a=MAX_FORWARD_MOTOR; a>=0; a-=30)
-        {
-            lldControlSetDrivingMotorPower(a);
-            time = chThdSleepUntilWindowed (time, S2ST(2)+time);
-        }
-        for(a=0; a>=MAX_BACK_MOTOR; a-=30)
-        {
-            lldControlSetDrivingMotorPower(a);
-            time = chThdSleepUntilWindowed (time, S2ST(2)+time);
-        }
-        for(a=MAX_BACK_MOTOR; a<=0; a+=30)
-        {
-            lldControlSetDrivingMotorPower(a);
-            time = chThdSleepUntilWindowed (time, S2ST(2)+time);
-        }
-        time = chThdSleepUntilWindowed (time, S2ST(2)+time);
-        a=0;
+        speed_value=Check(speed_value,MAX_SPEED_BACK_MOTOR,
+                        MAX_SPEED_FORWARD_MOTOR);
+        steer_value=Check(steer_value, RIGHT_STEERING_WHEEL,
+                        LEFT_STEERING_WHEEL);
+        lldControlSetDrivingMotorRawPower(speed_value);
+        lldControlSetSteerMotorRawPower(steer_value);
+        dbgprintf("Angle:%d Speed:%d \n\r",(int)steer_value,(int)speed_value);
+        time = chThdSleepUntilWindowed (time, MS2ST(100)+time);
     }
 }
 
+/**
+ * @brief Test for steering wheel and speed motor
+ * @note value percentage
+ */
+void testPowerWheelsRoutine(void)
+{
+    int32_t speed_value = 0;
+    int32_t steer_value = 0;
+    char sym = 0;
+    lldDriveControlInit();
+    debug_stream_init();
+    systime_t time = chVTGetSystemTime();
+    while(1)
+    {
+        sym = sdGetTimeout(&SD3, TIME_IMMEDIATE);
+        switch(sym)
+        {
+            case 'a':
+                speed_value += speed_delta_pr ;
+                break;
+            case 'd':
+                speed_value -= speed_delta_pr ;
+                break;
+            case ' ':
+                speed_value = 0;
+                steer_value = 0;
+                break;
+            case 'q':
+                steer_value += steer_delta_pr;
+                break;
+            case 'e':
+                steer_value -= steer_delta_pr;
+                break;
+        }
+        speed_value=Check(speed_value,MAX_BACK_MOTOR,
+                                   MAX_FORWARD_MOTOR);
+        steer_value=Check(steer_value, MIN_STEERING_WHEEL,
+                                  MAX_STEERING_WHEEL);
+        lldControlSetDrivingMotorPower(speed_value);
+        lldControlSetSteerMotorPower(steer_value);
+        dbgprintf("Angle:%d Speed:%d \n\r",(int)steer_value,(int)speed_value);
+        time = chThdSleepUntilWindowed (time, MS2ST(100)+time);
+}
+}
