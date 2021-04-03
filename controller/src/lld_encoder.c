@@ -1,6 +1,6 @@
 #include <lld_encoder.h>
 
-#define MAX_TIC 24
+#define MAX_TIC 500
 int32_t status_white_pin = 0;
 static bool init_enc = false;
 tic_count_enc tic_count = 0;

@@ -10,6 +10,7 @@ float steer_b = 0;
 float motor_k_back = 0;
 float motor_b = 0;
 float motor_k_forward = 0;
+
 PWMConfig pwm1conf = {
     .frequency = F,
     .period = T,
@@ -17,7 +18,7 @@ PWMConfig pwm1conf = {
     .channels = {
                  {.mode = PWM_OUTPUT_ACTIVE_HIGH, .callback = NULL},//PE9
                  {.mode = PWM_OUTPUT_ACTIVE_HIGH, .callback = NULL},//PE11
-                 {.mode = PWM_OUTPUT_DISABLED,    .callback = NULL},
+                 {.mode = PWM_OUTPUT_DISABLED, .callback = NULL},
                  {.mode = PWM_OUTPUT_DISABLED,    .callback = NULL}
                  },
     .cr2 = 0,
@@ -31,9 +32,12 @@ void lldDriveControlInit(void)
 {
     if(init)
     return;
+
+    palSetLineMode(PAL_LINE(GPIOE,9), PAL_MODE_ALTERNATE(1));
     palSetLineMode(PAL_LINE(GPIOE,11),PAL_MODE_ALTERNATE(1));
-    palSetLineMode(PAL_LINE(GPIOE,9),PAL_MODE_ALTERNATE(1));
+
     pwmStart(&PWMD1,&pwm1conf);
+
     steer_k_left = (LEFT_STEERING_WHEEL-CENTER_STEERING_WHEEL)*(-0.01);
     steer_b = CENTER_STEERING_WHEEL;
     steer_k_right = (CENTER_STEERING_WHEEL-RIGHT_STEERING_WHEEL)*0.01;

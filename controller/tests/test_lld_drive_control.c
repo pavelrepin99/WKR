@@ -2,7 +2,7 @@
 #include <lld_drive_control.h>
 #include <debug.h>
 
-#define speed_delta 200
+#define speed_delta 50
 #define steer_delta 200
 #define speed_delta_pr 30
 #define steer_delta_pr 30
@@ -13,15 +13,15 @@
  */
 void testRawPowerWheelsRoutine(void)
 {
-    int32_t speed_value = 0;
+    int32_t speed_value = 1500;
     int32_t steer_value = 0;
-    char sym = 0;
+
     lldDriveControlInit();
     debug_stream_init();
     systime_t time = chVTGetSystemTime();
     while(1)
     {
-        sym = sdGetTimeout(&SD3, TIME_IMMEDIATE);
+        char sym = sdGetTimeout(&SD3, TIME_IMMEDIATE);
         switch(sym)
         {
             case 'a':
@@ -40,6 +40,8 @@ void testRawPowerWheelsRoutine(void)
             case 'e':
                 steer_value -= steer_delta;
                 break;
+
+            default: ;
         }
         speed_value=Check(speed_value,MAX_SPEED_BACK_MOTOR,
                         MAX_SPEED_FORWARD_MOTOR);
