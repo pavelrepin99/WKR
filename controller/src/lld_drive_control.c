@@ -35,8 +35,6 @@ void lldDriveControlInit(void)
 
     palSetLineMode(PAL_LINE(GPIOE,9), PAL_MODE_ALTERNATE(1));
     palSetLineMode(PAL_LINE(GPIOE,11),PAL_MODE_ALTERNATE(1));
-    palSetLineMode(PAL_LINE(GPIOE,13),PAL_MODE_ALTERNATE(1));
-
 
     pwmStart(&PWMD1,&pwm1conf);
 
@@ -87,7 +85,6 @@ void lldControlSetSteerMotorPower(int32_t duty_cycle)
 void lldControlSetDrivingMotorRawPower(int32_t duty_cycle)
 {
     duty_cycle=Check(duty_cycle,MAX_SPEED_BACK_MOTOR,MAX_SPEED_FORWARD_MOTOR);
-    pwmEnableChannel(&PWMD1,2,duty_cycle);
     pwmEnableChannel(&PWMD1,0,duty_cycle);
 }
 /**
