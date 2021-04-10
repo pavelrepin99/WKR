@@ -17,7 +17,7 @@ void testEncoderCommonRoutines(void);
  * @brief test odometry to get distance
  * @note unit of CM
  */
-void testRobotOdometryDistance(void);
+void testRobotOdometryCommonRoutines(void);
 
 /**
  * @brief test odometry to get speed of robot and speed of encoder
@@ -47,6 +47,11 @@ void testRawPowerWheelsRoutine(void);
  * @note value percentage
  */
 void testPowerWheelsRoutine(void);
+/**
+ * @brief Test for check speed raw and filtered speed
+ * @note data transmitted to matlab
+ */
+void testRobotOdometryFilterSpeed(void);
 
 #endif
 

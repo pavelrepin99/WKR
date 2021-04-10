@@ -24,10 +24,12 @@ static void searchtest(void)
 #elif (MAIN_PROGRAM_ROUTINE == PROGRAM_ROUTINE_TEST_ENCODER)
     testEncoderCommonRoutines();
 #elif (MAIN_PROGRAM_ROUTINE == PROGRAM_ROUTINE_ROBOT_ODOMETRY)
-    testRobotOdometryDistance();
+    testRobotOdometryCommonRoutines();
 #elif (MAIN_PROGRAM_ROUTINE == PROGRAM_ROUTINE_ROBOT_ODOMETRY_SPEED)
     testRobotOdometryReset();
 #elif (MAIN_PROGRAM_ROUTINE == PROGRAM_ROUTINE_TEST_STEER_ANGLE)
     testSteerAngle();
+#elif(MAIN_PROGRAM_ROUTINE == PROGRAM_ROUTINE_TEST_SPEED_FILTER)
+    testRobotOdometryFilterSpeed();
 #endif
 }
