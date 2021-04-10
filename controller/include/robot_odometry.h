@@ -43,4 +43,6 @@ speedEncoder odometryGetEncoderSpeed(void);
  */
 void odometryReset(void);
 
+speedOdometry odometryGetRobotSpeedNoFilter(mySpeedUnits units);
+
 #endif

@@ -16,7 +16,7 @@ float current_speed = 0;
 float filtered_speed = 0;
 #define VTIME_PERIOD_MS 10
 #define MS_TO_SEC 100
-#define FILTER 1
+#define FILTER
 #define K 0.5
 
 /**
@@ -25,15 +25,14 @@ float filtered_speed = 0;
 static void tim_s(void *arg)
 {
     (void)arg;
-    dist = odometryGetRobotDistance(CM)/CM;
+    dist = odometryGetRobotDistance(CM)/CM;// dimensionless quantity
     current_speed = (dist - prev_dist)*MS_TO_SEC;
     prev_dist = dist;
     #ifdef FILTER
-        filtered_speed = current_speed * (1-K) + previous_filtered_speed_lpf * K;
-        previous_filtered_speed_lpf = filtered_speed;
-        current_speed = filtered_speed;
+      filtered_speed = current_speed * (1-K) + previous_filtered_speed_lpf * K;
+      previous_filtered_speed_lpf = filtered_speed;
     #endif
-    speed = current_speed;
+    speed = filtered_speed;
     turn = lldGetEncoderRawRevs();
     speed_enc = (turn - prev_turn)*MS_TO_SEC;
     prev_turn = turn;
@@ -53,7 +52,7 @@ void odometryInit(void)
     lldEncoderInit();
     chVTObjectInit(&speed_t);
     chVTSet(&speed_t, MS2ST(VTIME_PERIOD_MS), tim_s, NULL);
-    init_tim = true;
+    init_tim = TRUE;
 }
 
 /**
@@ -98,3 +97,9 @@ void odometryReset(void)
     turn = 0;
     prev_turn = 0;
 }
+
+speedOdometry odometryGetRobotSpeedNoFilter(mySpeedUnits units)
+{
+    return current_speed*units;
+}
+
