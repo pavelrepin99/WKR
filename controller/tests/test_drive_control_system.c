@@ -59,7 +59,7 @@ void testPISteerAngle(void)
                     break;
                 default: ;
             }
-            RefAngle(angle_input);
+            setRefAngle(angle_input);
             angle_output = lldGetSteerAngle(DEG);
             #ifdef MATLAB_PI_STEER
                 if(StartTransfer)

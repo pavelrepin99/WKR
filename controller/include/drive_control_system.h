@@ -11,20 +11,19 @@ typedef struct
     steerValue ki;
     steerValue integSaturation;
     steerValue propDeadZone;
-}PIregulator_Steer ;
+}PIregulator;
 
 /**
  * @brief Initialization and create thread
  * @args priority
  */
-void driveCSInit(tprio_t prio);
+void driveCSInit(uint8_t prio);
 
 /**
  * @brief Get setting angle
  * @args angle (DEG)
- * @returns the angle [-25;25]
  */
-angleValue RefAngle(int16_t angle);
+void setRefAngle(int16_t angle);
 
 /**
  * @brief Reset the values of PI regulator

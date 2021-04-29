@@ -16,9 +16,9 @@ angleValue ref_angle = 0;
 int16_t real_angle = 0;
 int16_t intg = 0;
 int16_t intg_prev = 0;
-int16_t PI = 0;
+int16_t steer_control_val = 0;
 
-PIregulator_Steer pi = {
+PIregulator pi = {
     .kp = 0,
     .ki = 0,
     .integSaturation = 0,
@@ -29,44 +29,36 @@ static THD_WORKING_AREA(regulator,256);
 static THD_FUNCTION(CalculationReg,arg)
 {
     (void*)arg;
-    systime_t time = chVTGetSystemTime();
+    systime_t time = chVTGetSystemTimeX();
     while(1)
     {
         real_angle = lldGetSteerAngle(DEG);
         if(abs(ref_angle - real_angle) > pi.propDeadZone)
             p_err = ref_angle - real_angle;
-        else if(abs(ref_angle - real_angle) <= pi.propDeadZone)
+        else
         {
             p_err = 0;
             intg = 0;
         }
-        if(abs(intg) < pi.integSaturation)
-        {
-            intg += p_err;
-            intg_prev = intg;
-        }
-        else if(abs(intg) >= pi.integSaturation)
-        {
-            intg = intg_prev;
-        }
-        PI = pi.kp*p_err + pi.ki*intg;
+        intg = Check(intg,-pi.integSaturation,pi.integSaturation);
+        steer_control_val = pi.kp*p_err + pi.ki*intg;
         if(p_err < 0)
         {
-            PI = PI * LEFT_TICK;
+            steer_control_val = steer_control_val * LEFT_TICK;
         }
         else if(p_err > 0)
         {
-            PI = PI * RIGHT_TICK;
+            steer_control_val = steer_control_val * RIGHT_TICK;
         }
-        lldControlSetSteerMotorPower(PI);
-        time = chThdSleepUntilWindowed (time, MS2ST(10)+time);
+        lldControlSetSteerMotorPower(steer_control_val);
+        time = chThdSleepUntilWindowed(time, MS2ST(10)+time);
     }
 }
 /**
  * @brief Initialization and create thread
  * @args priority
  */
-void driveCSInit(tprio_t prio)
+void driveCSInit(uint8_t prio)
 {
     if(driveInit)
         return;
@@ -79,12 +71,10 @@ void driveCSInit(tprio_t prio)
 /**
  * @brief Get setting angle
  * @args angle (DEG)
- * @returns the angle [-25;25]
  */
-angleValue RefAngle(int16_t angle)
+void setRefAngle(int16_t angle)
 {
     ref_angle = Check(angle, MAX_ANGLE, MIN_ANGLE);
-    return ref_angle;
 }
 
 /**
@@ -94,7 +84,7 @@ void ResetRegulator(void)
 {
     p_err = 0;
     intg = 0;
-    PI = 0;
+    steer_control_val = 0;
     intg_prev = 0;
     ref_angle = 0;
 }
