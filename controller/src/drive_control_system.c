@@ -12,7 +12,7 @@
 
 bool driveInit = FALSE;
 int16_t p_err = 0;
-angleValue ref_angle = 0;
+int16_t ref_angle = 0;
 int16_t real_angle = 0;
 int16_t intg = 0;
 int16_t intg_prev = 0;
@@ -39,6 +39,10 @@ static THD_FUNCTION(CalculationReg,arg)
         {
             p_err = 0;
             intg = 0;
+        }
+        if(abs(intg) < pi.integSaturation)
+        {
+            intg += p_err;
         }
         intg = Check(intg,-pi.integSaturation,pi.integSaturation);
         steer_control_val = pi.kp*p_err + pi.ki*intg;
@@ -69,7 +73,7 @@ void driveCSInit(uint8_t prio)
     driveInit = TRUE;
 }
 /**
- * @brief Get setting angle
+ * @brief Angle setting
  * @args angle (DEG)
  */
 void setRefAngle(int16_t angle)

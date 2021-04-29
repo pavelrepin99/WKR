@@ -3,7 +3,6 @@
 
 #include <common.h>
 
-typedef int16_t angleValue;
 typedef float steerValue;
 typedef struct
 {
@@ -20,7 +19,7 @@ typedef struct
 void driveCSInit(uint8_t prio);
 
 /**
- * @brief Get setting angle
+ * @brief Angle setting
  * @args angle (DEG)
  */
 void setRefAngle(int16_t angle);
