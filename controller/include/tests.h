@@ -52,5 +52,10 @@ void testPowerWheelsRoutine(void);
  * @note data transmitted to matlab
  */
 void testRobotOdometryFilterSpeed(void);
+/**
+ * @brief Test for closed system in angle
+ * @note passes input and output angle to terminal
+ */
+void testPISteerAngle(void);
 
 #endif
