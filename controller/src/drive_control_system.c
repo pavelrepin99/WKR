@@ -40,12 +40,9 @@ static THD_FUNCTION(CalculationReg,arg)
             p_err = 0;
             intg = 0;
         }
-        if(abs(intg) < pi.integSaturation)
-        {
-            intg += p_err;
-        }
+        intg += p_err * pi.ki;
         intg = Check(intg,-pi.integSaturation,pi.integSaturation);
-        steer_control_val = pi.kp*p_err + pi.ki*intg;
+        steer_control_val = pi.kp*p_err + intg;
         if(p_err < 0)
         {
             steer_control_val = steer_control_val * LEFT_TICK;
