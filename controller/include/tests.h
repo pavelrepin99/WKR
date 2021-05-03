@@ -12,13 +12,11 @@ void testUart(void);
  * @note variable of encoder displayed in Serial
  */
 void testEncoderCommonRoutines(void);
-
 /**
  * @brief test odometry to get distance
  * @note unit of CM
  */
 void testRobotOdometryCommonRoutines(void);
-
 /**
  * @brief test odometry to get speed of robot and speed of encoder
  */
@@ -29,7 +27,6 @@ void testRobotOdometrySpeed(void);
  * @note press 's' call reset variables speed
  */
 void testRobotOdometryReset(void);
-
 /*
  * @brief Test get data from ADC and control servo
  * @note s - +20%
@@ -57,5 +54,10 @@ void testRobotOdometryFilterSpeed(void);
  * @note passes input and output angle to terminal
  */
 void testPISteerAngle(void);
+/**
+ * @brief Test for closed system in speed
+ * @note passes input and output speed to terminal or matlab
+ */
+void testPISpeedMotor(void);
 
 #endif
