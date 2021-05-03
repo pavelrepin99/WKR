@@ -8,7 +8,7 @@
 /* 25 - 100%
  * 1  -  4%
  */
-#define TICK 4
+#define TICK_ANGLE 4
 #define MAX_SPEED 0.2
 #define MIN_SPEED -0.2
 #define TICK_SPEED 5
@@ -55,7 +55,7 @@ static THD_FUNCTION(CalculationReg,arg)
         }
         intg += p_err * pi.ki_steer;
         intg = Check(intg,-pi.integSaturationSteer,pi.integSaturationSteer);
-        steer_control_val = (pi.kp_steer*p_err + intg)*TICK;
+        steer_control_val = (pi.kp_steer*p_err + intg)*TICK_ANGLE;
         lldControlSetSteerMotorPower(steer_control_val);
         //Speed regulator
         if(abs(ref_speed - real_speed) > pi.propDeadZoneMotor)
