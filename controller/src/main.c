@@ -33,5 +33,7 @@ static void searchtest(void)
     testRobotOdometryFilterSpeed();
 #elif(MAIN_PROGRAM_ROUTINE == PROGRAM_ROUTINE_TEST_DCS_ANGLE)
     testPISteerAngle();
+#elif(MAIN_PROGRAM_ROUTINE == PROGRAM_ROUTINE_TEST_DCS_SPEED)
+    testPISpeedMotor();
 #endif
 }

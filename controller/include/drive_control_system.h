@@ -2,14 +2,16 @@
 #define INCLUDE_TMP_DRIVE_CONTROL_SYSTEM_H_
 
 #include <common.h>
+#include <robot_odometry.h>
 
-typedef float steerValue;
+typedef float regulatorValue;
+
 typedef struct
 {
-    steerValue kp;
-    steerValue ki;
-    steerValue integSaturation;
-    steerValue propDeadZone;
+    regulatorValue kp;
+    regulatorValue ki;
+    regulatorValue integSaturation;
+    regulatorValue propDeadZone;
 }PIregulator;
 
 /**
@@ -28,5 +30,10 @@ void setRefAngle(int16_t angle);
  * @brief Reset the values of PI regulator
  */
 void ResetRegulator(void);
+/**
+ * @brief Speed setting
+ * @args speed (M_S)
+ */
+void setRefSpeed(float speed, mySpeedUnits units);
 
 #endif
