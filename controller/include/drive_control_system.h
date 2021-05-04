@@ -8,14 +8,10 @@ typedef float regulatorValue;
 
 typedef struct
 {
-    regulatorValue kp_steer;
-    regulatorValue ki_steer;
-    regulatorValue integSaturationSteer;
-    regulatorValue propDeadZoneSteer;
-    regulatorValue kp_motor;
-    regulatorValue ki_motor;
-    regulatorValue integSaturationMotor;
-    regulatorValue propDeadZoneMotor;
+    regulatorValue kp;
+    regulatorValue ki;
+    regulatorValue integSaturation;
+    regulatorValue propDeadZone;
 }PIregulator;
 
 /**

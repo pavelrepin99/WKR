@@ -25,15 +25,18 @@ int16_t p_err_speed = 0;
 int16_t intg_speed = 0;
 int16_t real_speed = 0;
 
-PIregulator pi = {
-    .kp_steer = 0,
-    .ki_steer = 0,
-    .integSaturationSteer = 0,
-    .propDeadZoneSteer = 0,
-    .kp_motor = 0,
-    .ki_motor = 0,
-    .integSaturationMotor = 0,
-    .propDeadZoneMotor = 0,
+PIregulator steerPI = {
+    .kp = 0,
+    .ki = 0,
+    .integSaturation = 0,
+    .propDeadZone = 0,
+};
+
+PIregulator motorPI = {
+    .kp = 0,
+    .ki = 0,
+    .integSaturation = 0,
+    .propDeadZone = 0,
 };
 
 static THD_WORKING_AREA(regulator,256);
@@ -46,29 +49,29 @@ static THD_FUNCTION(CalculationReg,arg)
         real_angle = lldGetSteerAngle(DEG);
         real_speed = odometryGetRobotSpeed(CM_S);
         //angle_regulator
-        if(abs(ref_angle - real_angle) > pi.propDeadZoneSteer)
+        if(abs(ref_angle - real_angle) > steerPI.propDeadZone)
             p_err = ref_angle - real_angle;
         else
         {
             p_err = 0;
             intg = 0;
         }
-        intg += p_err * pi.ki_steer;
-        intg = Check(intg,-pi.integSaturationSteer,pi.integSaturationSteer);
-        steer_control_val = (pi.kp_steer*p_err + intg)*TICK_ANGLE;
+        intg += p_err * steerPI.ki;
+        intg = Check(intg,-steerPI.integSaturation,steerPI.integSaturation);
+        steer_control_val = (steerPI.kp*p_err + intg)*TICK_ANGLE;
         lldControlSetSteerMotorPower(steer_control_val);
         //Speed regulator
-        if(abs(ref_speed - real_speed) > pi.propDeadZoneMotor)
+        if(abs(ref_speed - real_speed) > motorPI.propDeadZone)
             p_err_speed = ref_speed - real_speed;
         else
         {
             p_err_speed = 0;
             intg_speed = 0;
         }
-        intg_speed += p_err_speed * pi.ki_motor;
-        intg_speed = Check(intg_speed,-pi.integSaturationMotor,
-                           pi.integSaturationMotor);
-        speed_control_val = (pi.kp_motor*p_err_speed + intg_speed)*TICK_SPEED;
+        intg_speed += p_err_speed * motorPI.ki;
+        intg_speed = Check(intg_speed,-motorPI.integSaturation,
+                           motorPI.integSaturation);
+        speed_control_val = (motorPI.kp*p_err_speed + intg_speed)*TICK_SPEED;
         lldControlSetDrivingMotorPower(speed_control_val);
         time = chThdSleepUntilWindowed(time, MS2ST(10)+time);
     }
