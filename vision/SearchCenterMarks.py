@@ -6,13 +6,14 @@ class SearchMarks:
     """
     This class is designed to search for center road markings
     """
-    def __init__(self,image:np.ndarray):
+    def __init__(self,image:np.ndarray,alpha):
         """
         @param image: initial image
         @type image: uint8
         """
         self._logger = logging.getLogger(self.__class__.__name__)
         self.image = image
+        self.alpha = alpha
 
     @staticmethod
     def convert(img:np.ndarray):
@@ -67,8 +68,8 @@ class SearchMarks:
                 if abs(area - (rect[2]*rect[3]))/area*100 < 180:
                     x_0 = rect[2] * 0.5
                     x_c = rect[0] + x_0
-                    alpha = x_c * 0.078 - 24.96
-                    alpha = round(alpha)
-                    cv2.putText(self.image,str(alpha),(300,100),cv2.FONT_HERSHEY_SIMPLEX,3,(0,255,0),3)
+                    self.alpha = x_c * 0.078 - 24.96
+                    self.alpha = round(self.alpha)
+                    cv2.putText(self.image,str(self.alpha),(300,100),cv2.FONT_HERSHEY_SIMPLEX,3,(0,255,0),3)
                     cv2.drawContours(self.image,contour,i,(0,0,255),3,cv2.LINE_AA)
-        return self.image
+        return self.image, self.alpha

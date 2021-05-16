@@ -4,9 +4,11 @@ import os
 import logging
 import inspect
 from SearchCenterMarks import SearchMarks
+from USB import SerialUsb
 
 if __name__ == "__main__":
     log = logging.getLogger(__name__)
+    usb = SerialUsb()
     dirname=(os.path.dirname(inspect.getfile(inspect.currentframe())))
     name_1 = 'EV_zawrka_2_left_line.mp4'
     name_2 = 'EV_zawrka_1_right_line.mp4'
@@ -19,12 +21,15 @@ if __name__ == "__main__":
         ret, frame = cap.read()
         if cv2.waitKey(1) & 0xFF == ord('q') or ret == False:
             break
-        mark_road = SearchMarks(frame)
-        result_img = mark_road.search_contours()
+        mark_road = SearchMarks(frame,0)
+        result_img, alpha = mark_road.search_contours()
+        result_angle = usb.send(alpha)
         cv2.imshow('frame',result_img)
-        time.sleep(0.05)
+        time.sleep(0.01)
     cap.release()
     cv2.destroyAllWindows()
+    usb.close_serial()
+
 
 
 
