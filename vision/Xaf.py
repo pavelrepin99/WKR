@@ -8,7 +8,7 @@ from USB import SerialUsb
 
 if __name__ == "__main__":
     log = logging.getLogger(__name__)
-    usb = SerialUsb()
+    usb = SerialUsb('COM5',115200)
     dirname=(os.path.dirname(inspect.getfile(inspect.currentframe())))
     name_1 = 'EV_zawrka_2_left_line.mp4'
     name_2 = 'EV_zawrka_1_right_line.mp4'
@@ -22,10 +22,10 @@ if __name__ == "__main__":
         if cv2.waitKey(1) & 0xFF == ord('q') or ret == False:
             break
         mark_road = SearchMarks(frame,0)
-        result_img, alpha = mark_road.search_contours()
-        result_angle = usb.send(alpha)
+        result_img, alpha, speed = mark_road.search_contours()
+        result = usb.send(100,alpha,speed)
         cv2.imshow('frame',result_img)
-        time.sleep(0.01)
+        time.sleep(0.1)
     cap.release()
     cv2.destroyAllWindows()
     usb.close_serial()

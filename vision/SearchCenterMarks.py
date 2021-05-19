@@ -72,4 +72,7 @@ class SearchMarks:
                     self.alpha = round(self.alpha)
                     cv2.putText(self.image,str(self.alpha),(300,100),cv2.FONT_HERSHEY_SIMPLEX,3,(0,255,0),3)
                     cv2.drawContours(self.image,contour,i,(0,0,255),3,cv2.LINE_AA)
-        return self.image, self.alpha
+                    self.speed = 15
+                else:
+                    self.speed = 0
+        return self.image, self.alpha, self.speed
