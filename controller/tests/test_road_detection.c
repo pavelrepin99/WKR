@@ -28,10 +28,13 @@ void testPyserial(void)
         sdReadTimeout(&SD3,(uint8_t*)&sym,3,TIME_IMMEDIATE);
         int8_t *buf = (int8_t*)&sym;
         start = buf[0];
-        angle = buf[1];
-        speed = buf[2];
-        setRefAngle(angle);
-        setRefSpeed(speed, M_S);
+	if(start == 100)
+	{
+       	    angle = buf[1];
+       	    speed = buf[2];
+            setRefAngle(angle);
+            setRefSpeed(speed, M_S);
+	}
         dbgprintf("start:%d angle:%d speed:%d\n\r",start,angle, speed);
         time = chThdSleepUntilWindowed(time, MS2ST(20)+time);
     }
