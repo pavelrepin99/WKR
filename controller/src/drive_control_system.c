@@ -27,7 +27,7 @@ float prev_ref_speed = 0;
 PIregulator steerPI = {
     .kp = 0,
     .ki = 0.06,
-    .integSaturation = 150,
+    .integSaturation = 0,
     .propDeadZone = 0,
 };
 
@@ -120,7 +120,7 @@ void setRefAngle(int8_t angle)
     ref_angle = Check(angle, MIN_ANGLE,MAX_ANGLE);
 }
 /**
- * @brief Reset the values of PI regulator
+ * @brief Reset the values of PI regulator(motor)
  */
 void ResetSpeedRegulator(void)
 {
@@ -129,6 +129,9 @@ void ResetSpeedRegulator(void)
     intg_speed = 0;
     p_err_speed = 0;
 }
+/**
+ * @brief Reset the values of I regulator(servo)
+ */
 void ResetSteerRegulator(void)
 {
     p_err = 0;

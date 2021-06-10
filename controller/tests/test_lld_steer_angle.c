@@ -3,8 +3,8 @@
 #include <lld_drive_control.h>
 #include <lld_steer_angle.h>
 
-#define INCREASE_ANGLE 15
-#define DECRISE_ANGLE 10
+#define INCREASE_ANGLE 5
+#define DECRISE_ANGLE 5
 
 int unit = DEG;
 
@@ -29,24 +29,19 @@ void testSteerAngle(void)
         switch(sym)
         {
             case ' ':
-                //duty_cycle = 0;
-                duty_cycle = 1140; //center
+                duty_cycle = 0;
                 angle_servo = lldGetSteerAngle(unit);
                 break;
             case 's':
-                //duty_cycle += INCREASE_ANGLE;
-                duty_cycle = 500; //right
+                duty_cycle += INCREASE_ANGLE;
                 angle_servo = lldGetSteerAngle(unit);
                 break;
             case 'd':
-                //duty_cycle -= DECRISE_ANGLE;
-                duty_cycle = 1650;//left
+                duty_cycle -= DECRISE_ANGLE;
                 angle_servo = lldGetSteerAngle(unit);
                 break;
         }
-//        duty_cycle = Check(duty_cycle,-46,33);
-//        lldControlSetSteerMotorPower(duty_cycle);
-        lldControlSetSteerMotorRawPower(duty_cycle); //test
+        lldControlSetSteerMotorPower(duty_cycle);
         dbgprintf("Angle:%d input:%d\n\r",(int)angle_servo, duty_cycle);
         time = chThdSleepUntilWindowed (time, MS2ST(100)+time);
     }

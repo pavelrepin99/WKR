@@ -31,10 +31,15 @@ void driveCSInit(uint8_t prio);
 void setRefAngle(int8_t angle);
 
 /**
- * @brief Reset the values of PI regulator
+ * @brief Reset the values of PI regulator(motor)
  */
 void ResetSpeedRegulator(void);
+
+/**
+ * @brief Reset the values of I regulator(servo)
+ */
 void ResetSteerRegulator(void);
+
 /**
  * @brief Speed setting
  * @args speed (M_S)

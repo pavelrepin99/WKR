@@ -9,7 +9,10 @@ static const SerialConfig sdcfg = {
                 .cr3    = 0
             };
 
-
+/**
+ *@brief Test for transferring data from python to MK
+ *@note Start: check byte, angle, speed(CM_S)
+ */
 void testPyserial(void)
 {
     ResetSteerRegulator();

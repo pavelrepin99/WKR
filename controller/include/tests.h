@@ -60,6 +60,10 @@ void testPISteerAngle(void);
  */
 void testPISpeedMotor(void);
 
+/**
+ *@brief Test for transferring data from python to MK
+ *@note Start: check byte, angle, speed(CM_S)
+ */
 void testPyserial(void);
 
 #endif

@@ -48,6 +48,4 @@ void lldControlSetDrivingMotorRawPower(int32_t duty_cycle);
  */
 void lldControlSetDrivingMotorPower(int32_t duty_cycle);
 
-float getIntg(void);
-
 #endif

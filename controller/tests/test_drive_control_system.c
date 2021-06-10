@@ -83,7 +83,7 @@ void testPISteerAngle(void)
                 time = chThdSleepUntilWindowed (time, MS2ST(10)+time);
             #else
                 dbgprintf("Input:%d Output:%d\n\r",angle_input, angle_output);
-                //time = chThdSleepUntilWindowed (time, MS2ST(100)+time);
+                time = chThdSleepUntilWindowed (time, MS2ST(100)+time);
             #endif
         }
 }
