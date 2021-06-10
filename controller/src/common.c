@@ -20,3 +20,16 @@ int32_t Check(int32_t duty_cycle, int32_t low,int32_t high)
     return duty_cycle;
 }
 
+float Check_speed(float speed, float low, float high)
+{
+    if(speed<=low)
+    {
+        speed = low;
+    }
+    else if(speed>=high)
+    {
+        speed = high;
+    }
+    return speed;
+}
+

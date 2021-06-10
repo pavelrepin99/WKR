@@ -472,3 +472,8 @@ y = 1001;
 z = 3003;
 
 clear saveVarsMat;
+subplot(3,1,1),plot(V,B), xlabel('t'),ylabel('tick') %tick
+subplot(3,1,2),plot(V,C), xlabel('t'), ylabel('revs') %revs
+subplot(3,1,3),plot(V,D), xlabel('t'), ylabel('direction') %direction
+
+
