@@ -34,3 +34,4 @@ void dbgprintf( const char* format, ... )
     chvprintf(debug_stream, format, ap);
     va_end(ap);
 }
+

@@ -21,7 +21,9 @@
 #define PROGRAM_ROUTINE_TEST_DCS_ANGLE 9
 #define PROGRAM_ROUTINE_TEST_DCS_SPEED 10
 
-#define MAIN_PROGRAM_ROUTINE 10
+#define TEST_PY 11
+
+#define MAIN_PROGRAM_ROUTINE 11
 
 #define Wheel_Radius 0.04
 #define k 0.105
@@ -33,6 +35,7 @@
  * @args high is maximum value
  * @return duty_cycle
  */
-int32_t Check(int32_t duty_cycle, int32_t low,int32_t high);
+int32_t Check(int32_t duty_cycle, int32_t low, int32_t high);
+float Check_speed(float speed, float low, float high);
 
 #endif

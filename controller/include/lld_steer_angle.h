@@ -6,10 +6,10 @@
 typedef float buff;
 typedef float filterAdc;
 typedef float angle_adc;
-typedef enum{TICKS = 1, DEG = 28, RAD = 4886}angle_units;
+typedef enum{TICKS = 1, DEG = 26, RAD = 4886}angle_units;
 #define CENTER_STEER 1350
-#define RIGHT_STEER 970
-#define LEFT_STEER 1780
+#define RIGHT_STEER 210//970
+#define LEFT_STEER 2270//1780
 
 /**
  * @brief Initialization ADC, GPT

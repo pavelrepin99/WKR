@@ -4,7 +4,7 @@
 #include <lld_encoder.h>
 #include <lld_drive_control.h>
 
-#define MATLAB_ODOMETRY
+//#define MATLAB_ODOMETRY
 #define speed_delta_pr 30
 
 #ifdef MATLAB_ODOMETRY
@@ -30,6 +30,7 @@ void testRobotOdometryCommonRoutines(void)
     lldEncoderInit();
     lldDriveControlInit();
     odometryInit();
+
     #ifdef MATLAB_ODOMETRY
     sdStart( &SD7, &sdcfg );
     palSetPadMode(GPIOE,7, PAL_MODE_ALTERNATE(8) );

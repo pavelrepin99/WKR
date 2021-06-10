@@ -4,7 +4,7 @@
 #include <debug.h>
 
 #define speed_delta_pr 30
-#define MATLAB
+//#define MATLAB
 
 #ifdef MATLAB
     static const SerialConfig sdcfg = {

@@ -35,5 +35,7 @@ static void searchtest(void)
     testPISteerAngle();
 #elif(MAIN_PROGRAM_ROUTINE == PROGRAM_ROUTINE_TEST_DCS_SPEED)
     testPISpeedMotor();
+#elif(MAIN_PROGRAM_ROUTINE == TEST_PY)
+    testPyserial();
 #endif
 }

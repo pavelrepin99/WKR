@@ -11,6 +11,7 @@ PROJECT_TESTS   = tests/test_lld_drive_control.c tests/test_debug.c \
                   tests/test_robot_odometry_speed.c\
                   tests/test_lld_steer_angle.c\
 		  		  tests/test_drive_control_system.c\
+		  		  tests/test_road_detection.c\
 # C source files
 PROJECT_CSRC 	= src/main.c src/common.c $(PROJECT_MODULES) $(PROJECT_TESTS) 
 

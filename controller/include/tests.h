@@ -60,5 +60,7 @@ void testPISteerAngle(void);
  */
 void testPISpeedMotor(void);
 
+void testPyserial(void);
+
 #endif
 

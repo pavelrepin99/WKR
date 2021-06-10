@@ -4,7 +4,11 @@
 #include <common.h>
 #include <robot_odometry.h>
 
+#define MAX_ANGLE 25
+#define MIN_ANGLE -25
+
 typedef float regulatorValue;
+typedef float regIntgr;
 
 typedef struct
 {
@@ -24,12 +28,13 @@ void driveCSInit(uint8_t prio);
  * @brief Angle setting
  * @args angle (DEG)
  */
-void setRefAngle(int16_t angle);
+void setRefAngle(int8_t angle);
 
 /**
  * @brief Reset the values of PI regulator
  */
-void ResetRegulator(void);
+void ResetSpeedRegulator(void);
+void ResetSteerRegulator(void);
 /**
  * @brief Speed setting
  * @args speed (M_S)
